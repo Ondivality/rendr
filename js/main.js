@@ -1,6 +1,9 @@
 // There may be redundant code with JS already having a method, but I wish to make it all myself!
 // Thank you <3
 
+// Note to future self, tutorial has shader argument on rasterizer, we grab shader directly from
+// shader fragment, so when we make shaders we have to figure out how to convey that information
+
 
 // Creates canvas & makes drawing start from bottom left corner
 canvas = document.getElementById("mainCanvas");
@@ -14,12 +17,12 @@ let a = {
 	y: 10
 };
 let b = {
-	x: 25,
-	y: 25
+	x: 110,
+	y: 130
 };
 let c = {
-	x: 50,
-	y: 50
+	x: 150,
+	y: 30
 };
 
 function drawPoint(ax, ay, color = "black") {
@@ -34,6 +37,21 @@ function drawLine(ax, ay, bx, by) {
         drawPoint(x*5, Math.ceil(y));
         y = y + yStep;
     }
+}
+
+function fragment(alpha, beta, gamma) {
+	alpha *= 255
+	beta *= 255
+	gamma *= 255
+	return `rgba(${alpha}, ${beta}, ${gamma}, 1`;
+}
+
+// Takes in a.x and a.y (from -1 to 1) and converts to our screen size of 1000x1000
+function screen(a) {
+	return {
+		.x = (a.x + 1) / 2 * canvas.width
+		.y = (a.y + 1) / 2 * canvas.height
+	}
 }
 
 function drawTriangle(ax, ay, bx, by, cx, cy) {
@@ -71,7 +89,13 @@ function drawRainbowFilledTriangle(ax, ay, bx, by, cx, cy) {
 }
 
 // Normal Triangle
-function drawFilledTriangle(ax, ay, bx, by, cx, cy) {
+function Rasterize(a, b, c) {
+	let ax = a.x
+	let bx = b.x
+	let cx = c.x
+	let ay = a.y
+	let by = b.y
+	let cy = c.y
 	let xMin = Math.min(ax, bx, cx);
 	let yMin = Math.min(ay, by, cy);
 	let xMax = Math.max(ax, bx, cx);
@@ -86,7 +110,8 @@ function drawFilledTriangle(ax, ay, bx, by, cx, cy) {
 			if (alpha < 0 || beta < 0 || gamma < 0) {
 				continue;
 			}
-			drawPoint(x, y)
+			let color = fragment(alpha, beta, gamma)
+			drawPoint(x, y, color)
 		}
 	}
 }
