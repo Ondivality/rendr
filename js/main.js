@@ -1,9 +1,10 @@
 // There may be redundant code with JS already having a method, but I wish to make it all myself!
 // Thank you <3
 
-// Note to future self, tutorial has shader argument on rasterizer, we grab shader directly from
-// shader fragment, so when we make shaders we have to figure out how to convey that information
-
+// Also note that this was made following a tutorial! Anything past the following date was made
+// without the tutorial:
+// Tutorial referring to: https://www.youtube.com/watch?v=Ffi-eKJWwuE
+// All code was translated from their implementation to JS by me!
 
 // Creates canvas & makes drawing start from bottom left corner
 canvas = document.getElementById("mainCanvas");
