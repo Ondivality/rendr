@@ -50,8 +50,8 @@ function fragment(alpha, beta, gamma) {
 // Takes in a.x and a.y (from -1 to 1) and converts to our screen size of 1000x1000
 function screen(a) {
 	return {
-		.x = (a.x + 1) / 2 * canvas.width
-		.y = (a.y + 1) / 2 * canvas.height
+		x: (a.x + 1) / 2 * canvas.width,
+		y: (a.y + 1) / 2 * canvas.height
 	}
 }
 
